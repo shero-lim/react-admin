@@ -33,10 +33,20 @@
         .login-form{
             margin: 30px auto;
             width: 400px;
-        }
-        .login-form-button{
-            width: 100%;
-            background-color:darkred;
+
+            :where(.css-dev-only-do-not-override-15rg2km).ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover{
+                border-color:fuchsia;
+            }
+            :where(.css-dev-only-do-not-override-15rg2km).ant-input-affix-wrapper-focused{
+                border-color:fuchsia;
+            }
+            :where(.css-dev-only-do-not-override-15rg2km).ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper{
+                border-color: red;
+            }
+            .login-form-button{
+                width: 100%;
+                background-color:darkred;
+            }
         }
     }
 }

@@ -1,9 +1,17 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
+import memoryUtils from "../../utils/memoryUtils";
+import { Navigate } from "react-router-dom"
 
-export default class Admin extends Component{
-    render(){
-        return (
-            <div>Admin</div>
-        )
+const Admin = () => {
+    const user = memoryUtils.user;
+
+    if (!user || !user._id) {
+        return <Navigate to="/login"></Navigate>
     }
+
+    return (
+        <div>Hello Admin</div>
+    )
 }
+
+export default Admin
