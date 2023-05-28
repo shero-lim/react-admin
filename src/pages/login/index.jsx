@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./index.less"
-import logo from "./images/logo11.svg"
+import logo from "../../assets/images/logo11.svg"
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input, message } from 'antd';
 import { reqLogin } from "../../api";
@@ -15,17 +15,17 @@ const Login = () => {
     const onFinish = async (values) => {
         console.log('Received values of form: ', values);
         const { username, password } = values;
-        const result = await reqLogin(username, password)
-        // if(result.status === 0){
-        if (true) {
+        const {data: result} = await reqLogin(username, password)
+        if(result.status === 0){
             message.success("登录成功");
-            const user = result.data;
+            const user = result;
             memoryUtils.user = user;
             storageUtils.saveUser(user);
             navigate("/", { replace: true });
         } else {
             //登录失败，用户名或密码错误
-            message.error(result.message)
+            // message.error(result.message)
+            message.error("用户名或密码错误")
         }
     };
 
@@ -66,7 +66,6 @@ const Login = () => {
                 >
                     <Form.Item
                         name="username"
-                        //声明式验证： 直接使用别人定义好的验证规则进行验证
                         rules={[
                             { required: true, message: '用户名必须输入' },
                             { min: 4, message: '用户名至少4位' },
