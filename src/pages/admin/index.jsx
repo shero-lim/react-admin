@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import memoryUtils from "../../utils/memoryUtils";
 import { Navigate, Route, Routes } from "react-router-dom"
 import { Layout } from "antd";
@@ -29,17 +29,18 @@ const Admin = () => {
             </Sider>
             <Layout>
                 <Header>Header</Header>
-                <Content style={{ backgroundColor: "#fff" }}>
-                    <Routes>
-                        <Route path="/home" Component={Home}></Route>
-                        <Route path="/category" Component={Category}></Route>
-                        <Route path="/product" Component={Product}></Route>
-                        <Route path="/role" Component={Role}></Route>
-                        <Route path="/user" Component={User}></Route>
-                        <Route path="/charts/bar" Component={Bar}></Route>
-                        <Route path="/charts/line" Component={Line}></Route>
-                        <Route path="/charts/pie" Component={Pie}></Route>
-                    </Routes>
+                <Content style={{ margin: 20, backgroundColor: "#fff" }}>
+                        <Routes>
+                            <Route path="home" Component={Home}></Route>
+                            <Route path="category" Component={Category}></Route>
+                            <Route path="product" Component={Product}></Route>
+                            <Route path="role" Component={Role}></Route>
+                            <Route path="user" Component={User}></Route>
+                            <Route path="charts/bar" Component={Bar}></Route>
+                            <Route path="charts/line" Component={Line}></Route>
+                            <Route path="charts/pie" Component={Pie}></Route>
+                            <Route path="*" element={<Navigate to="home" replace={true}/>} />
+                        </Routes>
                 </Content>
                 <Footer style={{ textAlign: "center", color: "#cccccc" }}>推荐使用较新版谷歌浏览器，可以获得更佳页面操作</Footer>
             </Layout>

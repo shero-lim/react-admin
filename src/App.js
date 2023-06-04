@@ -9,7 +9,7 @@ export default class App extends Component {
       <BrowserRouter>
         <Routes>
           <Route path="/login" Component={Login}></Route>
-          <Route path="/" Component={Admin}></Route>
+          <Route path="*" exact Component={Admin}></Route>
         </Routes>
       </BrowserRouter>
     );
