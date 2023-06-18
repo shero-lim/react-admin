@@ -96,3 +96,41 @@ Mock.mock("/manage/category/list?parentId=0", "get", {
         ]
     }
 })
+
+Mock.mock("/manage/category/list?parentId=5ca9d695b49ef916541160ba", "get", {
+    data: {
+        status: 0,
+        data: [
+            {
+                parentId: '5ca9d695b49ef916541160ba',
+                _id: '5ca9d695b49ef916541160bo',
+                name: "冰箱",
+                __v: 0,
+            },
+            {
+                parentId: '5ca9d695b49ef916541160ba',
+                _id: '5ca9d695b49ef916541160bp',
+                name: "空调",
+                __v: 0,
+            },
+            {
+                parentId: '5ca9d695b49ef916541160ba',
+                _id: '5ca9d695b49ef916541160bq',
+                name: "洗衣机",
+                __v: 0,
+            },
+            {
+                parentId: '5ca9d695b49ef916541160ba',
+                _id: '5ca9d695b49ef916541160br',
+                name: "电视",
+                __v: 0,
+            },
+            {
+                parentId: '5ca9d695b49ef916541160ba',
+                _id: '5ca9d695b49ef916541160bs',
+                name: "厨卫电器",
+                __v: 0,
+            },
+        ]
+    }
+})
