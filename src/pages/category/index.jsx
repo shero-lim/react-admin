@@ -2,7 +2,7 @@ import { Card, Button, Table, Space, message, Modal } from "antd";
 import { PlusOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import "./index.less"
 import { Component } from "react";
-import { reqCategories } from "../../api";
+import { reqAddCategory, reqCategories, reqUpdateCategory } from "../../api";
 import LinkButton from "../../components/link-button";
 import AddForm from "./addForm";
 import UpdateForm from "./updateForm";
@@ -14,6 +14,7 @@ export default class Category extends Component {
         parentId: "0",
         parentName: "",
         showStatus: 0,
+        fields: "",
     }
 
     initColumns = () => {
@@ -59,9 +60,9 @@ export default class Category extends Component {
         })
     }
 
-    getCategories = async () => {
+    getCategories = async (_parentId) => {
         this.setState({ loading: true })
-        const { parentId } = this.state
+        const parentId = _parentId || this.state.parentId
         const { data: result } = await reqCategories(parentId);
         this.setState({ loading: false })
         if (result.status === 0) {
@@ -89,15 +90,33 @@ export default class Category extends Component {
         })
     }
 
-    addCategory() {
-
-    }
-
-    updateCategory = ()=> {
+    addCategory = async()=> {
         this.setState({
             showStatus: 0
         })
-         const categoryId = this.category._id;
+        //从表格获取的值
+        const parentId = "xxx";
+        const categoryName = "xxx";
+        const result = await reqAddCategory({ parentId, categoryName })
+        if(result.status === "0"){
+            //在当前页添加时，重新请求并显示
+            if(this.state.parentId === parentId){
+                this.getCategories()
+                //非当前页，添加一级列表时，重新请求不显示
+            }else if(parentId === "0"){
+                this.getCategories("0")
+            }
+        }
+    }
+
+    updateCategory = async() => {
+        this.setState({
+            showStatus: 0
+        })
+        const categoryId = this.category._id;
+        const categoryName = this.state.fields;
+        const {data} = await reqUpdateCategory({ categoryId, categoryName })
+        this.state.parentId == 0 ? this.setState({ categories: data.data }) : this.setState({ subCategories: data.data })
     }
 
     handleCancel = () => {
@@ -131,11 +150,11 @@ export default class Category extends Component {
         return (
             <Card title={title} extra={extra} className="card">
                 <Table columns={this.columns} dataSource={parentId === "0" ? categories : subCategories} bordered rowKey="_id" className="table" pagination={{ pageSize: 6 }} loading={loading} />
-                <Modal title="添加分类" open={showStatus === 1} onOk={this.addCategory} onCancel={this.handleCancel}>
-                    <AddForm></AddForm>
+                <Modal title="添加分类" open={showStatus === 1} onOk={this.addCategory} onCancel={this.handleCancel} destroyOnClose>
+                    <AddForm parentId={this.state.parentId} categories={this.state.categories}></AddForm>
                 </Modal>
-                <Modal title="更新分类" open={showStatus === 2} onOk={this.updateCategory} onCancel={this.handleCancel}>
-                    <UpdateForm categoryName={category?.name}></UpdateForm>
+                <Modal title="更新分类" open={showStatus === 2} onOk={this.updateCategory} onCancel={this.handleCancel} destroyOnClose>
+                    <UpdateForm categoryName={category?.name} onChange={(changedValues) => { this.setState({ fields: changedValues }) }}></UpdateForm>
                 </Modal>
             </Card>
         )
