@@ -12,6 +12,8 @@ import User from "../user";
 import Bar from "../charts/bar";
 import Line from "../charts/line";
 import Pie from "../charts/pie";
+import ProductAddUpdate from "../product/productAddUpdate";
+import ProductDetail from "../product/productDetail";
 
 const { Footer, Sider, Content } = Layout;
 
@@ -34,6 +36,8 @@ const Admin = () => {
                             <Route path="home" Component={Home}></Route>
                             <Route path="category" Component={Category}></Route>
                             <Route path="product" Component={Product}></Route>
+                            <Route path="product/addupdate" Component={ProductAddUpdate}></Route>
+                            <Route path="product/detail" Component={ProductDetail}></Route>
                             <Route path="role" Component={Role}></Route>
                             <Route path="user" Component={User}></Route>
                             <Route path="charts/bar" Component={Bar}></Route>
